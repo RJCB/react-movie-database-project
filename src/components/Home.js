@@ -1,34 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 //config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
-
 //components
 import HeroImage from "./HeroImage";
 import Grid from "./Grid";
 import Thumb from "./Thumb";
+import Spinner from "./Spinner";
+import SearchBar from "./SearchBar";
+import Button from "./Button";
 //Hook
 import { useHomeFetch } from "../hooks/useHomeFetch";
 //Image
 import NoImage from "../images/no_image.jpg";
 
 const Home = () => {
-    const { state, loading, error } = useHomeFetch();
+    const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore } = useHomeFetch();
+
+    if (error) return <div>Something went wrong...</div>
+
     return (
         <React.Fragment>
-            {/* check if results exist and if they do, render HeroImage. Props are image, title, text from the first result */}
-            {state.results[0] &&
+            {/* check if there is no search term and that results exist and if they do, render HeroImage. Props are image, title, text from the first result */}
+            {(!searchTerm && state.results[0]) &&
                 <HeroImage
                     image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
                     title={state.results[0].original_title}
                     text={state.results[0].overview} />}
-            <Grid header='Popular Movies'>
+            <SearchBar setSearchTerm={setSearchTerm} />
+            <Grid header={searchTerm ? "Search Results" : "Popular Movies"}>
                 {state.results.map((movie) => {
                     return <Thumb key={movie.id}
                         clickable={true}
                         image={movie.poster_path ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path : NoImage} movieId={movie.id}>{movie.title}</Thumb>
                 })}
             </Grid>
+            {loading && <Spinner />}
+            {state.page < state.total_pages && !loading && (
+                <Button text="Load more" callback={() => setIsLoadingMore(true)} />
+            )}
         </React.Fragment>
     );
 }
