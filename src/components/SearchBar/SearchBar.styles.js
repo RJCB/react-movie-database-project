@@ -37,5 +37,9 @@ export const Content = styled.div`
         height: 40px;
         color: var(--white);
         outline: none;
+
+        ::placeholder {
+            color: var(--lightGrey);
+        }
     }
 `;

@@ -14,6 +14,7 @@ const SearchBar = ({ setSearchTerm }) => {
             initial.current = false;
             return;
         }
+        //slight delay to make load appear more real
         const timer = setTimeout(() => {
             setSearchTerm(state);
         }, 500)
