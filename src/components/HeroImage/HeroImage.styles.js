@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
     background: linear-gradient(
         to bottom, rgba(0,0,0,0) 41%, rgba(0,0,0,0.65) 100%
     ),
-    url(${props => props.image}), var(--darkGrey);
+    url(${props => props.image}), var(--darkBlue);
     background-size: cover;
     background-position: center;
     height: 600px;

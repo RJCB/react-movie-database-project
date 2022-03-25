@@ -3,10 +3,11 @@
  * The state and logic is for the Home component. The purpose of this Hook is to have a cleaner Home component by
  * separating the logic from JSX
  */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 //API
 import API from "../API";
-
+//Helpers
+import { isPersistedState } from "../helpers";
 const initialState = {
     page: 0,
     results: [],
@@ -28,7 +29,6 @@ export const useHomeFetch = () => {
             const movies = await API.fetchMovies(searchTerm, page);
             /** movies is an object with page,total_pages,total_results key values and a "results" array. In setState, we set the movies as state and if there are additional pages, we append the "results" from new movies object to the "results" from the previous movies state because we don't want to wipe out previous "results" everytime we fetch a new page
             */
-            console.log(movies);
             setState(prev => ({
                 ...movies,
                 results:
@@ -43,6 +43,14 @@ export const useHomeFetch = () => {
 
     //initial and search
     useEffect(() => {
+        //Fetch state from session storage except when user is searching
+        if (!searchTerm) {
+            const sessionState = isPersistedState("homeState");
+            if (sessionState) {
+                setState(sessionState);
+                return;
+            }
+        }
         setState(initialState);//reset state before making a new search
         fetchMovies(1, searchTerm);
     }, [searchTerm]);
@@ -53,6 +61,11 @@ export const useHomeFetch = () => {
         fetchMovies(state.page + 1, searchTerm);
         setIsLoadingMore(false);
     }, [isLoadingMore, searchTerm, state.page]);
+
+    //Write to session storage to avoid API call everytime we load homepage
+    useEffect(() => {
+        if (!searchTerm) sessionStorage.setItem("homeState", JSON.stringify(state));
+    }, [searchTerm, state])
 
     return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore };
 }

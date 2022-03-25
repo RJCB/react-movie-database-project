@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.button`
     display: block;
-    background: var(--darkGrey);
+    background: var(--darkBlue);
     width: 25%;
     min-width: 200px;
     height: 60px;

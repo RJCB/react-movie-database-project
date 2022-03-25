@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import RMDBLogo from "../../images/react-movie-logo.svg";
-import TMDBLogo from "../../images/tmdb_logo.svg";
 
-import { Wrapper, Content, LogoImg, TMDBLogoImg } from "../Header/Header.styles";//named exports
+import { Wrapper, Content, LogoImg } from "../Header/Header.styles";//named exports
 
 const Header = () => {
     return (
@@ -12,7 +11,6 @@ const Header = () => {
                 <Link to='/'>
                     <LogoImg src={RMDBLogo} alt='rmdb-logo' />
                 </Link>
-                <TMDBLogoImg src={TMDBLogo} alt='tmdb-logo' />
             </Content>
         </Wrapper>
     )

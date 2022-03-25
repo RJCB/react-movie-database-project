@@ -22,7 +22,7 @@ export const Wrapper = styled.div`
 export const Content = styled.div`
     display:flex;
     margin: 0 auto;
-    background: rgba(0,0,0,0.7);
+    background: rgba(3, 37, 65, 0.7);
     border-radius: 20px;
 
     @media screen and (max-width: 768px){

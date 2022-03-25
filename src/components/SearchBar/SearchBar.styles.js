@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
     display: flex;
     align-items: center;
     height: 100px;
-    background: var(--darkGrey);
+    background: var(--darkBlue);
     padding: 0 20px;
 `;
 
@@ -13,7 +13,7 @@ export const Content = styled.div`
     max-width: var(--maxWidth);
     width: 100%;
     height: 55px;
-    background: var(--medGrey);
+    background: var(--medBlue);
     margin: 0 auto;
     border-radius: 40px;
     color: var(--white);
