@@ -44,9 +44,10 @@ const Login = () => {
 
     return (
         <Wrapper>
-            <Login>
+            {error && <div className="error">There was an error!</div>}
+            <label>
                 Username:
-            </Login>
+            </label>
             <input type="text" value={username} name="username" onChange={handleInput} />
             <input type="password" value={password} name="password" onChange={handleInput} />
             <Button text="Login" callback={handleSubmit} />
